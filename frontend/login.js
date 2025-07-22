@@ -5,7 +5,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('/api/login', {
+        const response = await fetch('https://e-commerce-website-for-fruits-and.onrender.com/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -16,7 +16,8 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         const data = await response.json();
         if (response.ok) {
             alert('Login successful!');
-            // Optionally redirect to another page
+            // ✅ You can redirect to products page if needed
+            window.location.href = "products.html";
         } else {
             alert(`Error: ${data.message}`);
         }
