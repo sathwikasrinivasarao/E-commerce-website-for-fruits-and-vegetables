@@ -7,7 +7,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const role = document.getElementById('role').value;
 
     try {
-        const response = await fetch('/api/register', {
+        const response = await fetch('https://e-commerce-website-for-fruits-and.onrender.com/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -18,6 +18,8 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
         const data = await response.json();
         if (response.ok) {
             alert('Registration successful!');
+            // ✅ Redirect user to login after successful registration
+            window.location.href = "login.html";
         } else {
             alert(`Error: ${data.message}`);
         }
