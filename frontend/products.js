@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await fetch('/api/products');
+        const response = await fetch('https://e-commerce-website-for-fruits-and.onrender.com/api/products');
         const products = await response.json();
 
         const productList = document.getElementById('productList');
@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             productList.appendChild(productCard);
         });
 
+        // 🧠 Optional: Initialize map if you have a real use case
         function initMap() {
             const map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: -34.397, lng: 150.644 }, // Default center
+                center: { lat: -34.397, lng: 150.644 },
                 zoom: 8
             });
 
-            // Example marker, replace with dynamic data
             new google.maps.Marker({
                 position: { lat: -34.397, lng: 150.644 },
                 map,
