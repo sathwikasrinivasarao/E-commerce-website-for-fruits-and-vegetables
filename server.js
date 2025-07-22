@@ -1,4 +1,3 @@
-// Load environment variables from .env
 require('dotenv').config();
 
 const express = require('express');
@@ -9,7 +8,7 @@ const productRoutes = require('./routes/product');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 2008;
+const PORT = process.env.PORT || 2005;
 
 // Middleware
 app.use(express.json());
@@ -19,18 +18,15 @@ app.use(cors());
 // Serve static files from the template directory
 app.use(express.static(path.join(__dirname, 'vegetable-website-template')));
 
-// Debug: Print Mongo URI (optional)
+// Debug: Print Mongo URI (optional for logging purposes)
 console.log("Mongo URI:", process.env.MONGO_URI);
 
-// Connect to MongoDB using MONGO_URI from .env
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('✅ Connected to MongoDB'))
-.catch(err => console.error('❌ Could not connect to MongoDB', err));
+// ✅ Connect to MongoDB (cleaned: no deprecated options)
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch(err => console.error('❌ Could not connect to MongoDB', err));
 
-// Sample route
+// Sample home route
 app.get('/', (req, res) => {
   res.send('Welcome to the Fruits and Vegetable E-commerce Website!');
 });
@@ -50,11 +46,11 @@ app.post('/checkout', (req, res) => {
   res.json({ message: 'Checkout process' });
 });
 
-// API routes
+// API routes (auth & product-related endpoints)
 app.use('/api', authRoutes);
 app.use('/api', productRoutes);
 
-// Start the server
+// Start the Express server
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
 });
