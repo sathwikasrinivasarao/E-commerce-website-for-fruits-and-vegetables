@@ -7,7 +7,7 @@ document.getElementById('addProductForm').addEventListener('submit', async (e) =
     const userId = document.getElementById('userId').value;
 
     try {
-        const response = await fetch('/api/add-product', {
+        const response = await fetch('https://e-commerce-website-for-fruits-and.onrender.com/api/add-product', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
