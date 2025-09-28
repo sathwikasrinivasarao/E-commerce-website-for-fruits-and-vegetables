@@ -22,12 +22,28 @@ app.use('/frontend', express.static(path.join(__dirname, 'frontend')));
 // MongoDB connection (using a local fallback for demo)
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/farm-marketplace';
 
-mongoose.connect(MONGO_URI)
-  .then(() => console.log('✅ Connected to MongoDB'))
+// Try to connect to MongoDB, but don't fail if it's not available
+mongoose.connect(MONGO_URI, {
+  serverSelectionTimeoutMS: 3000, // Timeout after 3 seconds instead of 30
+  socketTimeoutMS: 3000,
+})
+  .then(() => {
+    console.log('✅ Connected to MongoDB');
+  })
   .catch(err => {
-    console.log('⚠️  MongoDB connection failed, using in-memory storage for demo');
-    console.log('Error:', err.message);
+    console.log('⚠️  MongoDB connection failed, continuing without database');
+    console.log('   To use database features, ensure MongoDB is running or set MONGO_URI in .env');
+    console.log('   Error:', err.message);
   });
+
+// Handle MongoDB connection errors after initial connection
+mongoose.connection.on('error', (err) => {
+  console.log('MongoDB connection error:', err.message);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('MongoDB disconnected');
+});
 
 // Routes
 app.get('/', (req, res) => {
