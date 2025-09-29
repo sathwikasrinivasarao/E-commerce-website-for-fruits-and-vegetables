@@ -26,7 +26,11 @@ This project is a web application for a farm marketplace, allowing farmers to re
    ```
 
 4. **Environment Variables**
-   - Ensure the `.env` file is set up with the correct MongoDB URI and any other necessary environment variables.
+   - Copy the `.env` file and configure your MongoDB connection:
+     - For local MongoDB: Uncomment the local MongoDB URI line
+     - For MongoDB Atlas: Uncomment and fill in your Atlas connection string
+     - For other MongoDB servers: Uncomment and modify the custom URI line
+   - **Note**: The application will run without a database connection, but database features will be limited.
 
 5. **Run the Application**
    ```bash
