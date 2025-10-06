@@ -1,5 +1,6 @@
 const express = require('express');
 const bcryptjs = require('bcryptjs');
+const mongoose = require('mongoose');
 const User = require('../models/User');
 
 const router = express.Router();
@@ -97,3 +98,4 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+module.exports.users = users;
