@@ -225,7 +225,43 @@ function hideLoading() {
   }
 }
 
+function isTouchDevice() {
+  return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+}
+
+function isMobileDevice() {
+  return window.innerWidth <= 768;
+}
+
+function debounceResize(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+window.addEventListener('resize', debounceResize(() => {
+  if (isMobileDevice()) {
+    document.body.classList.add('mobile-view');
+  } else {
+    document.body.classList.remove('mobile-view');
+  }
+}, 250));
+
 document.addEventListener('DOMContentLoaded', () => {
   updateAuthUI();
   updateCartBadge();
+
+  if (isMobileDevice()) {
+    document.body.classList.add('mobile-view');
+  }
+
+  if (isTouchDevice()) {
+    document.body.classList.add('touch-device');
+  }
 });

@@ -115,7 +115,19 @@ function searchProducts() {
   updateProductCount();
 }
 
-document.getElementById('searchInput').addEventListener('input', searchProducts);
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+document.getElementById('searchInput').addEventListener('input', debounce(searchProducts, 300));
 
 function filterByCategory(category) {
   currentCategory = category;

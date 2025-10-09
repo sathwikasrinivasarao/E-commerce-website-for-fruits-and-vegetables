@@ -16,6 +16,7 @@
     <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/frontend/responsive.css" rel="stylesheet">
 
     <style>
         .product-card {
@@ -105,6 +106,23 @@
             background: #81C408;
             color: white;
             border-color: #81C408;
+        }
+        @media (max-width: 767.98px) {
+            .product-card {
+                max-width: 100%;
+            }
+            #productsGrid .col-md-6,
+            #productsGrid .col-lg-4,
+            #productsGrid .col-xl-3 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            #productsGrid .col-md-6 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
         }
     </style>
 </head>
